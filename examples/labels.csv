@@ -1,0 +1,7 @@
+file,field,value
+s01_base_a.mhs,coins,120
+s01_base_a.mhs,name,Ina
+s03_coins_125.mhs,coins,125
+s05_long_name.mhs,name,Ina of the Reeds
+s06_new_rod.mhs,catches[2].weight_g,2210
+s06_new_rod.mhs,coins,98

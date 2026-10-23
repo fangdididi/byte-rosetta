@@ -1,0 +1,21 @@
+{
+  "name": "moss-harbor-save",
+  "endian": "le",
+  "fields": [
+    {"name": "magic", "type": "bytes", "size": 4, "const": "4d485356", "proof": "P1", "note": "'MHSV' in every sample"},
+    {"name": "version", "type": "u16", "const": 3, "proof": "P1", "note": "constant 3 across samples; meaning inferred"},
+    {"name": "unk_flags", "type": "u8", "proof": "P0", "note": "always 0 so far"},
+    {"name": "name_len", "type": "u8", "proof": "P3", "note": "3 -> 16 when the name was lengthened"},
+    {"name": "name", "type": "str", "size": "name_len", "enc": "utf-8", "proof": "P3"},
+    {"name": "coins", "type": "u32", "proof": "P4", "note": "120 -> 125 by selling a perch; edited copy showed 999 in game"},
+    {"name": "saved_at", "type": "u32", "proof": "P2", "note": "changes between twins; equals Unix time of the save"},
+    {"name": "catch_count", "type": "u16", "proof": "P3"},
+    {"name": "catches", "type": "struct", "repeat": "catch_count", "proof": "P3", "fields": [
+      {"name": "species", "type": "u16", "proof": "P2", "note": "1 perch, 2 eel, 3 pike (from the in-game log)"},
+      {"name": "weight_g", "type": "u16", "proof": "P2"},
+      {"name": "rod", "type": "u8", "proof": "P3"},
+      {"name": "gap_pad", "type": "u8", "proof": "P1", "note": "always 0; padding or reserved"}
+    ]},
+    {"name": "seal", "type": "u32", "seal": {"algo": "crc32", "from": 0, "to": "here"}, "proof": "P3", "note": "crc32 of all bytes before it; fits 6 samples"}
+  ]
+}
